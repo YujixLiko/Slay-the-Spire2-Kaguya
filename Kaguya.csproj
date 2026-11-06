@@ -3,9 +3,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
-    <Version>3.2.3</Version>
-    <AssemblyVersion>3.2.3.0</AssemblyVersion>
-    <FileVersion>3.2.3.0</FileVersion>
+    <Version>3.2.4</Version>
+    <AssemblyVersion>3.2.4.0</AssemblyVersion>
+    <FileVersion>3.2.4.0</FileVersion>
     <!-- 合并工程才有「酒寄彩叶」角色：独立辉夜 mod 不定义此常量 -->
     <DefineConstants>$(DefineConstants);HAS_SAKAYORI</DefineConstants>
   </PropertyGroup>
