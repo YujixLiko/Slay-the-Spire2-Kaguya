@@ -1,4 +1,4 @@
-
+﻿
 using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
@@ -82,7 +82,7 @@ public sealed class HeavensWill : HinaModsCard
             .Execute(choiceContext);
 
         // 月夜2：抽 2 张牌
-        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             return;
 
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);

@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -53,7 +53,7 @@ public sealed class FirstEncounter() : HinaModsCard(0,
         if (cardPlay.IsFirstInSeries)
         {
             // 月夜2：消耗 2 层月夜后额外获得1点能量（豁免时 need=0，效果照常触发）
-            if (await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+            if (await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             {
                 await PlayerCmd.GainEnergy(1, Owner);
             }

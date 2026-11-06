@@ -46,6 +46,9 @@ public sealed class Gather : HinaModsCard
         };
     }
 
+    /// <summary>集结的月夜是「打出门槛」：不够就打不出去，因此免费取得时应豁免。</summary>
+    protected override bool MoonlightAsPlayGate => true;
+
     protected override bool IsPlayable
     {
         get

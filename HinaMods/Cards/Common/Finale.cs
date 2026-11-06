@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -58,7 +58,7 @@ public sealed class Finale : HinaModsCard
 
         bool discounted = await TryConsumeMoonlight(
             choiceContext,
-            EffectiveMoonCost,
+            DynamicVars[MoonCostVarName].BaseValue,
             this);
 
         await PowerCmd.Apply<FinalePower>(

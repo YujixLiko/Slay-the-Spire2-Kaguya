@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -59,7 +59,7 @@ public sealed class HeavyHammer : HinaModsCard
         if (!cardPlay.IsFirstInSeries)
             return;
 
-        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             return;
 
         await PowerCmd.Apply<VulnerablePower>(

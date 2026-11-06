@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -55,7 +55,7 @@ public sealed class RoyalFan : HinaModsCard
 
         if (cardPlay.IsFirstInSeries)
         {
-            if (await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+            if (await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             {
                 newHandCard.EnergyCost.AddThisCombat(-1);
             }

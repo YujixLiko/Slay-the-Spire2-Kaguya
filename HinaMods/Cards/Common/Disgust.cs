@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -66,7 +66,7 @@ public sealed class Disgust : HinaModsCard
         );
 
         // 月夜2：对敌方全体造成伤害
-        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)

@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -60,7 +60,7 @@ public sealed class ReturnFlow : HinaModsCard
         if (!cardPlay.IsFirstInSeries)
             return;
 
-        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             return;
 
         await PowerCmd.Apply<MoonlightPower>(

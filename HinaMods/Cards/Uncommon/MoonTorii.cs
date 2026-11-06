@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -51,7 +51,7 @@ public class MoonTorii() : HinaModsCard(2,
         // 基础格挡
         await CommonActions.CardBlock(this, cardPlay);
 
-        int moonCost = (int)EffectiveMoonCost;
+        int moonCost = (int)DynamicVars[MoonCostVarName].BaseValue;
 
         // 消耗月夜（被「获得+免费」途径取得时 need=0，效果照常触发）
         if (!await TryConsumeMoonlight(choiceContext, moonCost, this))

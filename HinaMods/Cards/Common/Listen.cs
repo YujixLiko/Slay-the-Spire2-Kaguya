@@ -1,4 +1,4 @@
-using BaseLib.Utils;
+﻿using BaseLib.Utils;
 using Godot;
 using Kaguya.HinaMods.Powers;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -59,7 +59,7 @@ public sealed class Listen : HinaModsCard
         await CommonActions.CardBlock(this, cardPlay);
 
         // 月夜2：把弃牌堆一张牌加入手牌
-        if (!await TryConsumeMoonlight(choiceContext, EffectiveMoonCost, this))
+        if (!await TryConsumeMoonlight(choiceContext, DynamicVars[MoonCostVarName].BaseValue, this))
             return;
 
         CardPile discardPile = PileType.Discard.GetPile(player);

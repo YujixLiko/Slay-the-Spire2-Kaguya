@@ -55,6 +55,9 @@ public sealed class FullMoon : HinaModsCard
     /// 免费只作用于**第一次**打出：基类在 <see cref="HinaModsCard.AfterCardPlayed"/> 里还原消耗，
     /// 第二次被带回手牌后就按正常的「月夜5」（升级也还是 5）判断。
     /// </summary>
+    /// <summary>满月的月夜是「打出门槛」：不够就打不出去，因此免费取得时应豁免。</summary>
+    protected override bool MoonlightAsPlayGate => true;
+
     protected override bool IsPlayable
     {
         get

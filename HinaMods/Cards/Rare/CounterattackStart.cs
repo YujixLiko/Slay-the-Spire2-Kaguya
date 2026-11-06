@@ -60,8 +60,8 @@ public class CounterattackStart : HinaModsCard
             Owner.Creature,
             this);
 
-        // 月夜5：消耗 5 层月夜 → 返回手牌 + 本回合费用 -1
-        decimal requiredMoon = EffectiveMoonCost;
+        // 月夜是效果代价（非打出门槛），无论从哪个渠道获得都照扣，直接取变量值。
+        decimal requiredMoon = DynamicVars[MoonCostVarName].BaseValue;
         if (!await TryConsumeMoonlight(choiceContext, requiredMoon, this))
             return;
 

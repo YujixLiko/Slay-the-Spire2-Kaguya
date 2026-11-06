@@ -153,25 +153,40 @@ public abstract class HinaModsCard(int cost, CardType type, CardRarity rarity, T
 	}
 
 	/// <summary>
-	/// 本牌本次打出是否豁免月夜消耗（被「获得+免费」途径取得的牌不消耗月夜）。
-	/// 两种情形之一成立即豁免：
-	/// ① 生成方显式标记；② 本牌**基础费用仍大于 0**、但被局部修正降为 0（即本回合被免费打出）。
+	/// 本牌的月夜是否属于「**打出门槛**」而非「**效果消耗**」。
 	/// <para>
-	/// ⚠ ② 必须比较「升级后的基础费用」（<c>GetWithModifiers(CostModifiers.None)</c>）而不是
-	/// <c>EnergyCost.Canonical</c>：Canonical 是卡牌定义值、升级后不变。用 Canonical 的话，
-	/// 任何「升级后降到 0 费」的月夜卡（如集结 1→0）都会被误判成被免费打出，
-	/// 结果月夜不够也能打、且不消耗月夜。
+	/// 门槛卡（集结 / 满月）没有足够月夜就完全打不出去，所以被「免费打出」途径取得时
+	/// 必须豁免月夜，否则这张牌在手里永远无法使用。
+	/// </para>
+	/// <para>
+	/// 其余月夜牌（反击开始、卸力、终幕 …）的月夜是**效果代价**，
+	/// 无论从哪个渠道获得（癫狂之触 / 欧洛巴斯之酸 / 液态记忆 / 攻击药水 …）都要照扣。
 	/// </para>
 	/// </summary>
-	public bool SkipsMoonlightCost =>
-		_freePlayByEffect
-		|| (EnergyCost.GetWithModifiers(CostModifiers.None) > 0
-			&& EnergyCost.GetWithModifiers(CostModifiers.Local) == 0);
+	protected virtual bool MoonlightAsPlayGate => false;
 
 	/// <summary>
-	/// 本次打出**实际要扣**的月夜层数：处于「获得+免费 / 药水免费」状态时为 0，否则取 MoonCost 变量。
+	/// 本牌本次打出是否豁免月夜消耗。
+	/// <para>
+	/// **只有「门槛卡」+「生成方显式标记的免费打出」两个条件同时成立才豁免。**
+	/// </para>
+	/// <para>
+	/// ⚠ 不要把「本回合费用被降到 0」也当成免费：引擎的 <c>LocalCostModifier</c>
+	/// 不记录来源，「液态记忆」（仅改费用）与「欧洛巴斯之酸」（本回合免费）数据上完全一致，
+	/// 无法区分。若一律按 0 费豁免，则「反击开始」这类「减费 + 返回手牌」的牌
+	/// 会在费用归零后不再扣月夜，形成无限返回循环。
+	/// </para>
+	/// </summary>
+	public bool SkipsMoonlightCost => MoonlightAsPlayGate && _freePlayByEffect;
+
+	/// <summary>
+	/// 本次打出**实际要扣**的月夜层数：被「生成方显式标记为免费」时为 0，否则取 MoonCost 变量。
 	/// 所有「月夜N：」的牌都应通过它调用 <see cref="TryConsumeMoonlight"/>，
 	/// 否则免费状态下（变量仍是 N）会照扣层数。
+	/// <para>
+	/// 注意：外部来源（药水、事件、其它 mod）把费用改成 0 **不会**让这里归零，
+	/// 月夜照扣 —— 见 <see cref="SkipsMoonlightCost"/> 的说明。
+	/// </para>
 	/// </summary>
 	protected decimal EffectiveMoonCost =>
 		SkipsMoonlightCost ? 0m : (DynamicVars.ContainsKey(MoonCostVarName) ? DynamicVars[MoonCostVarName].BaseValue : 0m);
