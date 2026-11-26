@@ -1,0 +1,11 @@
+; spine-godot 4.2 / Godot 4.5.1 —— 仅用于【编辑器】里导入/预览 .skel / .atlas。
+; 故意只声明 windows.editor：导出时找不到 windows.release，就不会把 dll 打进 Kaguya.pck
+; （游戏本体已自带 libspine_godot 运行时，再打一份会重复注册），见 MEMORY.md 第 7 节。
+[configuration]
+
+entry_symbol = "spine_godot_library_init"
+compatibility_minimum = "4.1"
+
+[libraries]
+
+windows.editor.x86_64 = "windows/libspine_godot.windows.editor.x86_64.dll"

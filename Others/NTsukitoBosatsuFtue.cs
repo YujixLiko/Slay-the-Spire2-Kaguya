@@ -12,6 +12,12 @@ public partial class NTsukitoBosatsuFtue : NFtue
 {
 	public const string id = "tsukito_bosatsu_ftue";
 
+	/// <summary>
+	/// v0.114.0 新增的抽象成员：记录「已看过」的存档 ID。
+	/// 返回 id → 只在首次进入时显示一次；官方 NAcceptTutorialsFtue 返回 null 表示每次都显示。
+	/// </summary>
+	protected override string? SeenOnShowId => id;
+
 	private static readonly string[] _imagePaths = new[]
 	{
 		"res://images/packed/ftue/BosatsuFtue_01.png",

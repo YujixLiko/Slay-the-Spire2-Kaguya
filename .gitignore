@@ -47,3 +47,9 @@ debug_audio/*
 
 # NuGet packages
 *.nupkg
+
+# IDE
+.idea/
+
+# 本地备份
+*.bak
